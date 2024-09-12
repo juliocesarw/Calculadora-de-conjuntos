@@ -4,7 +4,7 @@
 #include <locale.h>
 #define MAX 1000
 
-/// OPERAÇÕES CENTRAIS
+/// OPERAï¿½ï¿½ES CENTRAIS
 int digitar(){
     int n;
     scanf("%d", &n);
@@ -13,7 +13,7 @@ int digitar(){
 
 void inserir(int *vetor, int *tamanho){
     
-    printf("Quantos números você deseja inserir no vetor? ");
+    printf("Quantos nï¿½meros vocï¿½ deseja inserir no vetor? ");
     int n = digitar();
     int i;
     for (i = 0; i < n; i++)
@@ -54,20 +54,20 @@ void remover(int *vetor, int escolha, int *tamanho){
     (*tamanho)--;
 }
 
-/// FUNÇÕES PARA O PROGRAMA 
+/// FUNï¿½ï¿½ES PARA O PROGRAMA 
 int opcao(){
 
     int op;
-    printf("Digite qual operação voce deseja fazer:\n\n");
+    printf("Digite qual operaï¿½ï¿½o voce deseja fazer:\n\n");
 
-    printf("[1] União\n");
-    printf("[2] Intercessão\n");
+    printf("[1] Uniï¿½o\n");
+    printf("[2] Intercessï¿½o\n");
     printf("[3] A - B\n");
     printf("[4] B - A\n");
-    printf("[5] Diferenca simétrica de A e B\n");
+    printf("[5] Diferenca simï¿½trica de A e B\n");
     printf("[6] A x B\n\n");
 
-    printf("Opção: ");
+    printf("Opï¿½ï¿½o: ");
     scanf("%d", &op);
 
     return op;
