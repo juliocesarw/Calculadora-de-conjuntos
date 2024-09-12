@@ -1,0 +1,1 @@
+#Esse trabalho é uma calculadora de conjuntos numéricos
