@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+
+/*biblioteca usada para os caracteres*/
 #include <locale.h>
 #define MAX 1000
 
