@@ -74,20 +74,89 @@ int opcao(){
 
     return op;
 }
-/*
-void operecao(int *vetor, int *tamanho){
+
+void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
     int op = opcao();
     switch (op)
     {
     case 1:
-        printf("oi");
+        uniao(vetor_A, vetor_B, tamanho_A, tamanho_B);
         break;
-    
+    /*case 2:
+        intercessao();
+        break;
+    case 3:
+        a_menos_b();
+        break;
+    case 4:
+        b_menos_a();
+        break;
+    case 5:
+        diferenca(vetor_A, vetor_B, tamanho_A, tamanho_B);
+        break;
+    case 6:
+        a_x_b();
+        break;*/    
     default:
+        printf("Invalido");
         break;
     }
 }
-*/
+
+/// FUNÇÕES PARA AS OPERAÇÕES
+
+void uniao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+
+    int vetor_c[MAX];
+    int tamanho_c = 0;
+    for (size_t i = 0; i < tamanho_A; i++)
+    {
+        vetor_c[i] = vetor_A[i];
+        tamanho_c++;
+    }
+    for (size_t i = 0; i < tamanho_B; i++)
+    {
+        /* code */
+        vetor_c[tamanho_A + i] = vetor_B[i];
+        tamanho_c++;
+    }
+    int seq = ordem(vetor_c, tamanho_c);
+
+    
+    
+    
+    
+}
+
+/*int diferenca(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+    int i;
+    for ( i = 0; i < tamanho_A; i++)
+    {
+        if ((vetor_A[i]) != (vetor_B[i])){
+            printf("%d ", vetor_A[i]);
+            printf("%d ", vetor_B[i]);
+        }
+    }
+    
+}*/
+
+///PARA COLOCAR O VETOR EM ORDEM
+
+int ordem(int *vetor, int tamanho){
+    for (size_t e = 0; e < tamanho - 1; e++)
+    {
+        for (int i = 0; i < tamanho - e; i++)
+        {
+            if (vetor[i] > vetor[i + 1]){
+                int troca = vetor[i + 1];
+                vetor[i+1] = vetor[i];
+                vetor[i] = troca;
+            }
+        }
+    }
+    
+}
+
 int main(){
 
     setlocale(LC_ALL, "portuguese");
