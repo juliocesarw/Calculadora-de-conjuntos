@@ -28,23 +28,26 @@ void inserir(int *vetor, int *tamanho){
 
 }
 
-void imprimir(int *vetor, int tamanho){
-    int i;
-    for (i = 0; i < tamanho; i++){
-        printf("%d ", vetor[i]);
-    }
-    
-}
 
 int pesquisar(int *vetor, int tamanho, int pesquisa){
-    printf("pesquise: ");
     int i;
-    for (i = 0; i < tamanho + 1; i++){
+    for (i = 0; i < tamanho; i++){
         if (vetor[i] == pesquisa){
             return i;
         }       
     }
     return -1;
+    
+}
+
+void imprimir(int *vetor, int tamanho){
+    int i;
+    for (i = 0; i < tamanho; i++){
+        int pes = pesquisar(vetor, i, vetor[i]);
+        if (pes < 0){
+            printf("%d ", vetor[i]);
+        } 
+    }
     
 }
 
@@ -75,17 +78,89 @@ int opcao(){
     return op;
 }
 
+
+///PARA COLOCAR O VETOR EM ORDEM
+
+void ordem(int *vetor, int tamanho){
+    for (size_t e = 0; e < (tamanho - 1); e++)
+    {
+        for (size_t i = 0; i < (tamanho - e - 1); i++)
+        {
+            if (vetor[i] > vetor[i + 1]){
+                int troca = vetor[i + 1];
+                vetor[i+1] = vetor[i];
+                vetor[i] = troca;
+            }
+        }
+    }
+    
+}
+
+/// FUNÇÕES PARA AS OPERAÇÕES
+
+void uniao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+
+    int vetor_c[MAX];
+    int tamanho_c = 0;
+    for (int i = 0; i < tamanho_A; i++)
+    {
+        vetor_c[i] = vetor_A[i];
+        tamanho_c++;
+    }
+    for (int i = 0; i < tamanho_B; i++)
+    {
+        vetor_c[tamanho_A + i] = vetor_B[i];
+        tamanho_c++;
+    }
+      
+    ordem(vetor_c, tamanho_c);
+
+    imprimir(vetor_c, tamanho_c);
+}
+
+/*
+void intercessao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+
+    int pes, tamanho_c;
+    int vetor_c[MAX];
+    tamanho_c = 0;
+    
+    for (size_t i = 0; i < tamanho_A; i++)
+    {
+        pes = pesquisar(vetor_B, tamanho_B, vetor_A[i]);
+        if (pes >= 0){
+            vetor_c[i] = vetor_A[i];
+            tamanho_c++;
+        }
+    }
+    for (size_t i = 0; i < tamanho_B; i++)
+    {
+        pes = pesquisar(vetor_A, tamanho_A, vetor_B[i]);
+        if (pes >= 0){
+            vetor_c[tamanho_c +  i] = vetor_A[i];
+            tamanho_c++; 
+        }
+    }
+
+
+
+    ordem(vetor_c, tamanho_c);
+    imprimir(vetor_c, tamanho_c);
+
+}*/
+
 void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
     int op = opcao();
     switch (op)
     {
     case 1:
+        printf("A U B: ");
         uniao(vetor_A, vetor_B, tamanho_A, tamanho_B);
         break;
-    /*case 2:
-        intercessao();
+    case 2:
+        intercessao(vetor_A, vetor_B, tamanho_A, tamanho_B);
         break;
-    case 3:
+    /*case 3:
         a_menos_b();
         break;
     case 4:
@@ -103,59 +178,7 @@ void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
     }
 }
 
-/// FUNÇÕES PARA AS OPERAÇÕES
 
-void uniao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
-
-    int vetor_c[MAX];
-    int tamanho_c = 0;
-    for (size_t i = 0; i < tamanho_A; i++)
-    {
-        vetor_c[i] = vetor_A[i];
-        tamanho_c++;
-    }
-    for (size_t i = 0; i < tamanho_B; i++)
-    {
-        /* code */
-        vetor_c[tamanho_A + i] = vetor_B[i];
-        tamanho_c++;
-    }
-    int seq = ordem(vetor_c, tamanho_c);
-
-    
-    
-    
-    
-}
-
-/*int diferenca(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
-    int i;
-    for ( i = 0; i < tamanho_A; i++)
-    {
-        if ((vetor_A[i]) != (vetor_B[i])){
-            printf("%d ", vetor_A[i]);
-            printf("%d ", vetor_B[i]);
-        }
-    }
-    
-}*/
-
-///PARA COLOCAR O VETOR EM ORDEM
-
-int ordem(int *vetor, int tamanho){
-    for (size_t e = 0; e < tamanho - 1; e++)
-    {
-        for (int i = 0; i < tamanho - e; i++)
-        {
-            if (vetor[i] > vetor[i + 1]){
-                int troca = vetor[i + 1];
-                vetor[i+1] = vetor[i];
-                vetor[i] = troca;
-            }
-        }
-    }
-    
-}
 
 int main(){
 
@@ -173,7 +196,8 @@ int main(){
 
     inserir(vetorA, &tamanho_vetorA);
     inserir(vetorB, &tamanho_vetorB);
-   
+    
+    operacao(vetorA, vetorB, tamanho_vetorA, tamanho_vetorB);
 
 
     return 0;
