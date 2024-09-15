@@ -118,36 +118,34 @@ void uniao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
     imprimir(vetor_c, tamanho_c);
 }
 
-/*
+
 void intercessao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
 
     int pes, tamanho_c;
     int vetor_c[MAX];
     tamanho_c = 0;
     
-    for (size_t i = 0; i < tamanho_A; i++)
+    for (int i = 0; i < tamanho_A; i++)
     {
         pes = pesquisar(vetor_B, tamanho_B, vetor_A[i]);
         if (pes >= 0){
-            vetor_c[i] = vetor_A[i];
+            vetor_c[tamanho_c] = vetor_A[i];
             tamanho_c++;
         }
     }
-    for (size_t i = 0; i < tamanho_B; i++)
+    for (int i = 0; i < tamanho_B; i++)
     {
         pes = pesquisar(vetor_A, tamanho_A, vetor_B[i]);
         if (pes >= 0){
-            vetor_c[tamanho_c +  i] = vetor_A[i];
+            vetor_c[tamanho_c] = vetor_B[i];
             tamanho_c++; 
-        }
+        } 
     }
-
-
-
+    
     ordem(vetor_c, tamanho_c);
     imprimir(vetor_c, tamanho_c);
 
-}*/
+}
 
 void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
     int op = opcao();
@@ -158,6 +156,7 @@ void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
         uniao(vetor_A, vetor_B, tamanho_A, tamanho_B);
         break;
     case 2:
+        printf("A intercessao de A e B e: ");
         intercessao(vetor_A, vetor_B, tamanho_A, tamanho_B);
         break;
     /*case 3:
