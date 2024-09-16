@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 
-/*biblioteca usada para os caracteres*/
-#include <locale.h>
+//TAMANHO DOS VETORES
 #define MAX 1000
 
-/// OPERAï¿½ï¿½ES CENTRAIS
+// BIBLIOTECA USADA PARA OS CARACTERES
+#include <locale.h>
+
+/// OPERAÇÕES CENTRAIS (DIGITAR, INSERIR, IMPRIMIR, PESQUISAR, REMOVER)
 int digitar(){
     int n;
     scanf("%d", &n);
     return n;
 }
 
-void inserir(int *vetor, int *tamanho){
+void inserir(int *vetor, int *tamanho, char letra){
     
-    printf("Quantos nï¿½meros vocï¿½ deseja inserir no vetor? ");
+    printf("Quantos elementos você deseja inserir no conjunto %c? ", letra);
     int n = digitar();
     int i;
     for (i = 0; i < n; i++)
@@ -59,32 +60,14 @@ void remover(int *vetor, int escolha, int *tamanho){
     (*tamanho)--;
 }
 
-/// FUNï¿½ï¿½ES PARA O PROGRAMA 
-int opcao(){
-
-    int op;
-    printf("Digite qual operaï¿½ï¿½o voce deseja fazer:\n\n");
-
-    printf("[1] Uniï¿½o\n");
-    printf("[2] Intercessï¿½o\n");
-    printf("[3] A - B\n");
-    printf("[4] B - A\n");
-    printf("[5] Diferenca simï¿½trica de A e B\n");
-    printf("[6] A x B\n\n");
-
-    printf("Opï¿½ï¿½o: ");
-    scanf("%d", &op);
-
-    return op;
-}
 
 
 ///PARA COLOCAR O VETOR EM ORDEM
 
 void ordem(int *vetor, int tamanho){
-    for (size_t e = 0; e < (tamanho - 1); e++)
+    for (int e = 0; e < (tamanho - 1); e++)
     {
-        for (size_t i = 0; i < (tamanho - e - 1); i++)
+        for (int i = 0; i < (tamanho - e - 1); i++)
         {
             if (vetor[i] > vetor[i + 1]){
                 int troca = vetor[i + 1];
@@ -96,7 +79,7 @@ void ordem(int *vetor, int tamanho){
     
 }
 
-/// FUNÃ‡Ã•ES PARA AS OPERAÃ‡Ã•ES
+/// FUNÇÕES PARA AS OPERAÇÕES
 
 void uniao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
 
@@ -147,54 +130,158 @@ void intercessao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
 
 }
 
-void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
-    int op = opcao();
-    switch (op)
+void calc_menos(int *vetor_1, int *vetor_2, int *vetor_3, int tamanho_1, int tamanho_2, int *tamanho_3){
+
+    for (int i = 0; i < tamanho_1; i++)
     {
-    case 1:
-        printf("A U B: ");
-        uniao(vetor_A, vetor_B, tamanho_A, tamanho_B);
-        break;
-    case 2:
-        printf("A intercessao de A e B e: ");
-        intercessao(vetor_A, vetor_B, tamanho_A, tamanho_B);
-        break;
-    /*case 3:
-        a_menos_b();
-        break;
-    case 4:
-        b_menos_a();
-        break;
-    case 5:
-        diferenca(vetor_A, vetor_B, tamanho_A, tamanho_B);
-        break;
-    case 6:
-        a_x_b();
-        break;*/    
-    default:
-        printf("Invalido");
-        break;
+        int pes = pesquisar(vetor_2, tamanho_2, vetor_1[i]);
+        if (pes < 0){
+            vetor_3[*tamanho_3] = vetor_1[i];
+            (*tamanho_3)++;
+        }
     }
+
+}
+
+void menos(int *vetor_1, int *vetor_2, int tamanho_1, int tamanho_2){
+
+    int vetor_3[MAX];
+    int tamanho_3 = 0;
+
+    calc_menos(vetor_1, vetor_2, vetor_3, tamanho_1, tamanho_2, &tamanho_3);
+
+    ordem(vetor_3, tamanho_3);
+    imprimir(vetor_3, tamanho_3);
+
+}
+
+void diferenca(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+    
+    int vetor_c[MAX];
+    int tamanho_c = 0;
+
+    calc_menos(vetor_A, vetor_B, vetor_c, tamanho_A, tamanho_B, &tamanho_c);
+    calc_menos(vetor_B, vetor_A, vetor_c, tamanho_A, tamanho_B, &tamanho_c);
+
+    ordem(vetor_c, tamanho_c);
+    imprimir(vetor_c, tamanho_c);
+
+}
+
+void plano_cartesiano(int *vetor_1, int *vetor_2, int tamanho_1, int tamanho_2){
+
+    for (int i = 0; i < tamanho_1; i++)
+    {
+        
+        for (int x = 0; x < tamanho_2; x++)
+        {
+            /* code */
+
+            if (x != (tamanho_2 - 1)){
+                printf(" (%d, %d), ", vetor_1[i], vetor_2[x]);
+            }
+            else{
+                printf("(%d, %d)", vetor_1[i], vetor_2[x]);                
+            }
+        }
+        
+    }
+    
+
+}
+
+/// FUNÇÕES PARA O PROGRAMA 
+int opcao(){
+
+    int op;
+    printf("\n\nDigite qual operação você deseja fazer:\n\n");
+
+    printf("[1] União\n");
+    printf("[2] Intercessão\n");
+    printf("[3] A - B\n");
+    printf("[4] B - A\n");
+    printf("[5] Diferença simétrica de A e B\n");
+    printf("[6] A x B\n");
+    printf("[7] B x A\n");    
+    printf("[8] Sair do programa\n\n");
+
+    printf("Opção: ");
+    scanf("%d", &op);
+
+    return op;
 }
 
 
+void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+    
+    int controle_loop = 1;
 
+    while (controle_loop >= 1)
+    {
+        /* code */
+        int op = opcao();
+        switch (op)
+        {
+        case 1:
+            printf("A U B: ");
+            uniao(vetor_A, vetor_B, tamanho_A, tamanho_B);
+            break;
+        case 2:
+            printf("A intercessão de A e B é: ");
+            intercessao(vetor_A, vetor_B, tamanho_A, tamanho_B);
+            break;
+        case 3:
+            printf("A - B é: ");
+            menos(vetor_A, vetor_B, tamanho_A, tamanho_B);
+            break;
+        case 4:
+            printf("B - A é: ");
+            menos(vetor_B, vetor_A, tamanho_B, tamanho_A);
+            break;
+        case 5:
+            printf("A diferença simétrica de A e B é: ");
+            diferenca(vetor_A, vetor_B, tamanho_A, tamanho_B);
+            break;
+        case 6:
+            printf("A x B: ");
+            plano_cartesiano(vetor_A, vetor_B, tamanho_A, tamanho_B);
+            break;
+        case 7:
+            printf("B x A: ");
+            plano_cartesiano(vetor_B, vetor_A, tamanho_B, tamanho_A);
+            break;
+        case 8:
+            printf("Volte sempre!!!");
+            controle_loop = 0;
+            break;
+        default:
+            printf("Invalido");
+            break;
+        }
+    }
+    
+}
+
+
+// PROGRAMA PRINCIPAL
 int main(){
 
     setlocale(LC_ALL, "portuguese");
 
-    /*criaï¿½ï¿½o de vetores*/
+    /*criação de vetores*/
 
     /*A*/
     int vetorA[MAX];
     int tamanho_vetorA = 0;
+    char vetA = 'A';
 
     /*B*/
     int vetorB[MAX];
     int tamanho_vetorB = 0;
+    char vetB = 'B';
 
-    inserir(vetorA, &tamanho_vetorA);
-    inserir(vetorB, &tamanho_vetorB);
+    inserir(vetorA, &tamanho_vetorA, vetA);
+    inserir(vetorB, &tamanho_vetorB, vetB);
     
     operacao(vetorA, vetorB, tamanho_vetorA, tamanho_vetorB);
 
