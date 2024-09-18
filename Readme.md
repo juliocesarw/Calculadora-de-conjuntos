@@ -28,6 +28,8 @@ após, vá no canto inferior direito do editor de código (VSCDODE) e clique em 
 
 depois clique em open with Encoding e, logo após, em ISO 8859-1.
 
+OBS: Talvez você tenha que editar as palavras após esse processo.
+
 ## Sobre o código:
 Na execução, ele te mostra o menu da calculadora de conjuntos e cada número corresponde a uma operação:
 
@@ -36,7 +38,6 @@ Na execução, ele te mostra o menu da calculadora de conjuntos e cada número c
 
 </p>  
 
-OBS: Talvez você tenha que editar as palavras após esse processo.
 
 ### Exemplo de cada sendo A = {1, 2, 3, 4}  e B = {3, 4, 5, 6} :
 
