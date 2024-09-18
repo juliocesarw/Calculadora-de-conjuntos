@@ -160,13 +160,13 @@ void menos(int *vetor_1, int *vetor_2, int tamanho_1, int tamanho_2){
 
 }
 
-void diferenca(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+void diferenca_simetrica(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
     
     int vetor_c[MAX];
     int tamanho_c = 0;
 
     calc_menos(vetor_A, vetor_B, vetor_c, tamanho_A, tamanho_B, &tamanho_c);
-    calc_menos(vetor_B, vetor_A, vetor_c, tamanho_A, tamanho_B, &tamanho_c);
+    calc_menos(vetor_B, vetor_A, vetor_c, tamanho_B, tamanho_A, &tamanho_c);
 
     ordem(vetor_c, tamanho_c);
     imprimir(vetor_c, tamanho_c);
@@ -218,7 +218,7 @@ int opcao(){
 }
 
 
-void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
+void chamada(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
     
     int controle_loop = 1;
 
@@ -246,7 +246,7 @@ void operacao(int *vetor_A, int *vetor_B, int tamanho_A, int tamanho_B){
             break;
         case 5:
             printf("A diferença simétrica de A e B é: ");
-            diferenca(vetor_A, vetor_B, tamanho_A, tamanho_B);
+            diferenca_simetrica(vetor_A, vetor_B, tamanho_A, tamanho_B);
             break;
         case 6:
             printf("A x B: ");
@@ -289,7 +289,7 @@ int main(){
     inserir(vetorA, &tamanho_vetorA, vetA);
     inserir(vetorB, &tamanho_vetorB, vetB);
     
-    operacao(vetorA, vetorB, tamanho_vetorA, tamanho_vetorB);
+    chamada(vetorA, vetorB, tamanho_vetorA, tamanho_vetorB);
 
 
     return 0;
