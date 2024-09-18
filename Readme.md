@@ -36,6 +36,8 @@ Na execução, ele te mostra o menu da calculadora de conjuntos e cada número c
 
 </p>  
 
+OBS: Talvez você tenha que editar as palavras após esse processo.
+
 ### Exemplo de cada sendo A = {1, 2, 3, 4}  e B = {3, 4, 5, 6} :
 
 #### União
